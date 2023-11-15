@@ -37,7 +37,7 @@ calc_culture_conversion_progress = {
 	# base gain = 2 - base 50 year conversions
 	set_key = {
 		lhs = Tmp_8
-		value = 2
+		value = 1000
 	}
 	
 	apply_regional_conversion_cases = yes # apply regional special case boosts to base conversion speed
