@@ -37,7 +37,7 @@ calc_culture_conversion_progress = {
 	# base gain = 2 - base 50 year conversions
 	set_key = {
 		lhs = Tmp_8
-		value = 1000
+		value = 5
 	}
 	
 	apply_regional_conversion_cases = yes # apply regional special case boosts to base conversion speed
@@ -543,43 +543,32 @@ apply_regional_conversion_cases = {
             value = 0.5
         }
     }
-	else_if = { #Sinofication of Manchuria
+
+
+
+	##Sinofication speedup
+	else_if = { 
         limit = {
             owner = {
-                culture_group = _group
+				culture_group = chinese_group
+				NOT ={
+					has_owner_accepted_culture = yes
+				}
             }
-			region = west_manchuria_region
+			OR = {
+				continent = asia
+				continent = north_asia
+				continent = southeast_asia
+				continent = central_asia
+				continent = oceania
+			}
         }
         multiply_key = {
             lhs = Tmp_8
-            value = 1.5
+            value = 5
         }
     }
-	else_if = { #Sinofication of Tumed Plain
-        limit = {
-            owner = {
-                culture_group = chinese_group
-            }
-			area = ordos_area
-        }
-        multiply_key = {
-            lhs = Tmp_8
-            value = 1.5
-        }
-    }
-	else_if = { #Sinofication of Yunnan
-        limit = {
-            owner = {
-                culture_group = chinese_group
-            }
-			region = yunnan_region
-			check_key = { lhs = RE_Total value = 15 }
-        }
-        multiply_key = {
-            lhs = Tmp_8
-            value = 2
-        }
-    }
+
 	else_if = { #Grikofication of Peninsular Southern Italy
         limit = {
             owner = {
@@ -804,23 +793,6 @@ cv_change_culture = {
 				is_capital = yes
 			}
 			change_culture = owner
-		}
-		else_if = {
-			limit = {
-				OR = {
-					culture = zhuang
-					culture = tay_nung
-				}
-				owner = { culture_group = chinese_group }
-				any_neighbor_province = {
-					OR = {
-						culture = yueyu
-						#culture = xiyue
-						culture = pinghua
-					}
-				}
-			}
-			change_culture = pinghua
 		}
 		else_if = {
 			limit = {
@@ -1134,6 +1106,9 @@ cv_change_culture = {
 			}
 			change_culture = frankish
 		}
+
+
+		##Sinofication overhaul
 		#Sinofication of Manchuria
 		else_if = { 
 			limit = {
@@ -1142,13 +1117,21 @@ cv_change_culture = {
 			}
 			change_culture = dongbei
 		}
-		#Sinofication of Tumed 
+		#Sinofication of Inner Mongolia 
 		else_if = { 
 			limit = {
 				owner = { culture_group = chinese_group }
-				area = ordos_area
+				region = inner_mongolia_region
 			}
 			change_culture = jinyu
+		}
+		#Sinofication of Outer Mongolia
+		else_if = { 
+			limit = {
+				owner = { culture_group = chinese_group }
+				region = outer_mongolia_region
+			}
+			change_culture = menggu
 		}
 		#Sinofication of Yunnan and Friends
 		else_if = { 
@@ -1156,12 +1139,170 @@ cv_change_culture = {
 				owner = { culture_group = chinese_group }
 				OR = {
 						region = yunnan_region
-						province_id = 672
-						province_id = 2082
+						area = guizhou_area
 					}
 			}
 			change_culture = yungui
 		}
+		#Sinofication of Guangxi
+		else_if = {
+			limit = {
+				OR = {
+					culture = zhuang
+					culture = tay_nung
+				}
+				owner = { culture_group = chinese_group }
+				any_neighbor_province = {
+					OR = {
+						culture = yueyu
+						#culture = xiyue
+						culture = pinghua
+						culture = yungui
+						culture = bashu 
+					}
+				}
+			}
+			change_culture = pinghua
+		}
+		#Sinofication of Vietnam
+		else_if = {
+			limit = {
+				culture = vietnamese
+				owner = { culture_group = chinese_group }
+				any_neighbor_province = {
+					OR = {
+						culture = yueyu
+						culture = minnan
+					}
+				}
+			}
+			change_culture = jiaozhi
+		}
+		#Sinofication of Tibet
+		else_if = {
+			limit = {
+				OR = {
+					culture = tibetan
+					culture = kham
+					culture = amdo
+					culture = qiang
+				}
+				owner = { culture_group = chinese_group }
+				any_neighbor_province = {
+					OR = {
+						culture = lanyin
+						culture = bashu
+					}
+				}
+			}
+			change_culture = zang
+		}
+		#Sinofication of Xiangxi
+		else_if ={
+			limit ={
+				OR = {
+					area = west_hunan_area
+					area = east_hunan_area
+					area = north_hunan_area
+				}
+				owner = { culture_group = chinese_group }
+				any_neighbor_province = {
+					OR = {
+						culture = xiangyu 
+						culture = bashu
+					}
+				}
+			}
+			change_culture = xiangyu
+		}
+		#Sinofication of Guangdong & Hainan
+		else_if = {
+			limit = {
+				owner = { culture_group = chinese_group }
+				any_neighbor_province = {
+					OR = {
+						culture = yueyu
+						culture = minnan
+					}
+				}
+				OR ={
+					province_id = 2464
+					province_id = 3939
+				}
+			}
+			change_culture = yueyu
+		}
+		#Sinofication of Chuannan
+		else_if = {
+			limit = {
+				region = sichuan_region
+				owner = { culture_group = chinese_group }
+				any_neighbor_province = {
+					OR = {
+						culture = bashu
+						culture = xiangyu 
+						culture = yungui
+					}
+				}
+			}
+			change_culture = bashu
+		}
+		#Sinofication of Xiyu
+		else_if = {
+			limit = {
+				region = zungaria_region
+				owner = { culture_group = chinese_group }
+				any_neighbor_province = {
+					OR = {
+						culture = lanyin
+						culture = zang
+						culture = guanzhong
+						culture = menggu
+					}
+				}
+			}
+			change_culture = lanyin
+		}
+		#Sinofication of Japan
+		else_if = {
+			limit = {
+				OR = {
+					region = west_japan_region
+					region = east_japan_region
+					region = central_japan_region
+				}
+				owner = { culture_group = chinese_group }
+				any_neighbor_province = {
+					OR = {
+						culture = shandong 
+						culture = dongbei 
+					}
+				}
+			}
+			change_culture = he
+		}
+		#Sinofication of Korea
+		else_if = {
+			limit = {
+					region = korea_region
+				owner = { culture_group = chinese_group }
+				any_neighbor_province = {
+					OR = {
+						culture = shandong 
+						culture = yanyun 
+						culture = dongbei
+					}
+				}
+			}
+			change_culture = chaoxian
+		}
+		#Sinoficaition of Myanmar
+		#Sinoficaition of Thailand
+		#Sinofication of South Sea
+
+
+
+
 		#Grikofication of Peninsular South Italy
 		else_if = { 
 			limit = {
