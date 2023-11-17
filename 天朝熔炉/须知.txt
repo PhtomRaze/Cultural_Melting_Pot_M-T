@@ -1,0 +1,5 @@
+建议使用unparsed版不带汉化的原版mt（因为还没做本地化
+将文件替换进相应文件夹即可
+MEC-Culture_Conversion → Documents\Paradox Interactive\Europa Universalis IV\mod\MEIOUandTaxes1\common\scripted_effects
+02_asia → Documents\Paradox Interactive\Europa Universalis IV\mod\MEIOUandTaxes1\common\cultures
+如果有bug/建议/批评，麻烦私信（1284881527），谢谢
